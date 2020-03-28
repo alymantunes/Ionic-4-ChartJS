@@ -1,6 +1,69 @@
+# Como adicionar um gráfico do chart.js aos aplicativos Ionics
+
+<h1 align="center"><img align="center" src="./chart-js.jpg" alt="Chart.js" width="700"></img></h1>
+
+Podemos adicionar um gráfico em aplicativos iônicos dos diferentes biblioteca, as bibliotecas mais populares para gráficos acrescentando são D3, Chart.js e angular2-Highcharts. É fácil adicionar o Chart.js na estrutura Ionic em comparação com o D3. O chart.js é uma biblioteca Javascript que usa o elemento ```<canvas>``` HTML5 para exibir gráficos, o que é perfeito para um aplicativo móvel HTML5. Os gráficos são super simples de configurar, têm uma aparência bonita e são responsivos por padrão - para que eles sejam dimensionados facilmente com o aplicativo conforme você alterna entre dispositivos ou orientação da tela.
+
+
+### Etapa Criando gráficos no Ionic:
+
+#### Passo 1: 
+```
+ionic start charts blank
+cd charts
+npm install chart.js --save
+```
+
+## Etapa 2: adicione o seguinte código em home.html.  
+
+```
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Charts.js in Ionic
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <ion-card>
+      <ion-card-header>
+        Bar Chart
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Doughnut Chart
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+ 
+    <ion-card>
+      <ion-card-header>
+        Line Chart
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #lineCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+```
+
+Temos três cartões, cada cartão possui um elemento canvas , e adicionamos uma variável local como, para #barCanvasque possamos pegar facilmente uma referência a ela em nosso arquivo TypeScript.
+
+#### Adicione o seguinte código em home.ts 
+
+```
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-
 
 @Component({
   selector: 'app-home',
@@ -9,9 +72,9 @@ import { Chart } from 'chart.js';
 })
 
 export class HomePage implements OnInit {
-  @ViewChild('barCanvas',{static:true}) barCanvas;
-  @ViewChild('doughnutCanvas',{static:true}) doughnutCanvas;
-  @ViewChild('lineCanvas',{static:true}) lineCanvas;
+  @ViewChild('barCanvas') barCanvas;
+  @ViewChild('doughnutCanvas') doughnutCanvas;
+  @ViewChild('lineCanvas') lineCanvas;
 
   barChart: any;
   doughnutChart: any;
@@ -126,4 +189,10 @@ export class HomePage implements OnInit {
     });
   }
 
-}
+} 
+```
+ 
+ 
+<p>Aviso: - Estamos importando o **Chart.js**, e também estamos importando **ViewChild**. Usamos o ViewChild para obter uma referência à variável local que anexamos à tela no modelo e, em seguida, fornecemos esse elemento ao novo gráfico quando estamos criando. Tudo o que precisamos fazer é fornecer ao Chart um objeto que defina o tipo de gráfico que queremos e o tipo de dados que queremos exibir.</p>
+
+*Não precisamos adicionar nada ao arquivo app.module.ts.*
